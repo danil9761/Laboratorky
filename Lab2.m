@@ -34,8 +34,8 @@ z2=2.7*exp(i*pi/12)
 z3=1.82*exp(-1.2i)
 z4=sqrt(3)-2i
 
-p=(z1^2*z2/z3)+z4
-
+p=(z1^2*z2/z3)+z4h
+njhgyutblkjjbjhgfhblkj
 
 
 
