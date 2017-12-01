@@ -1,0 +1,53 @@
+W1=tf([4],[1,3])
+W2=tf([1],[1,5])
+W3=tf([1,1],[3,2])
+W4=tf([1,1],[1])
+W5=parallel(W2,W3)
+W6=series(W1,W4)
+W7=series(W5,W6)
+% Будуємо перехідну функцію: 
+figure (1) 
+K=tf([10],[1,1]); % Передаточна функція вимірювача 
+G=tf([1,11,10],[1 4.69,10]);% Передаточна функція фільтра та вимірювача з фільтром 
+KG=mtimes(K,G); 
+step(K,'-k',KG,'-k'), grid on 
+% Будуємо імпульсну функцію: 
+figure (2) 
+impulse(K,'-k',KG,'-k'), grid on 
+%будуємо амплітудно-фазочастотну функцію: 
+figure (3) 
+nyquist(K,'-k',KG,'-k'), grid on 
+%Графіки амплітудно-частотної та фазочастотної характеристик. 
+figure (4) 
+b=[5];a=[0.01 0.05 1]; 
+[H,w]=freqs(b,a); 
+f=w /(2*pi); 
+mag=20*log10(abs(H)); 
+phase=angle(H)*180/pi; 
+subplot(2,1,1), semilogx(f,mag, 'k'), grid 
+title('Амплітудно-частотна характеристика','Fontsize',12) 
+ylabel('Амплітуда,Дб','Fontsize', 12) 
+subplot(2,1,2), semilogx(f, phase, 'k'),grid; 
+title('Фазочастотна характеристика','Fontsize',12) 
+xlabel('Частота,Гц','Fontsize',12) 
+ylabel('Фаза,град','Fontsize',12) 
+%Нулі функції: 
+figure (5) 
+pzmap(W1),grid 
+CL1=zpk(W1) 
+
+figure (6) 
+pzmap(W2),grid 
+CL2=zpk(W2) 
+
+figure (7) 
+pzmap(W3),grid 
+CL3=zpk(W3) 
+
+figure (8) 
+pzmap(W4),grid 
+CL4=zpk(W4) 
+
+figure (9) 
+pzmap(W5),grid 
+CL5=zpk(W5)
